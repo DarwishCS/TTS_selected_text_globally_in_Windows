@@ -15,12 +15,12 @@ Windows has built-in TTS, but lacks a global "Speak Selection" hotkey. This proj
 
 ### Step B: Create the Global Hotkey
 Windows only monitors the **Desktop** and **Start Menu** for shortcut keys.
-1. Right-click `SpeakText.vbs` > **Create Shortcut**.
+1. hold Right-click and drag `SpeakText.vbs` > **Create Shortcut Here**.
 2. Move that Shortcut to your **Desktop**.
 3. Right-click the Shortcut > **Properties**.
 4. **The Secret Sauce:** Change the **Target** field to:
    `C:\Windows\SysWOW64\wscript.exe "C:\Scripts\SpeakText.vbs"`
-5. Click the **Shortcut key** box and press `Ctrl + Alt + S`.
+5. Click the **Shortcut key** box and press `Ctrl + Alt + S`. I used the ***** key in the Numpad.
 6. Set **Run** to `Minimized`.
 
 ---
@@ -48,4 +48,27 @@ When you press the hotkey:
 ---
 
 ## 4. The Code
-[Insert the VBScript code here]
+Set objShell = CreateObject("WScript.Shell")
+Set objVoice = CreateObject("SAPI.SpVoice")
+
+' 1. Small delay to let you release the physical keys
+WScript.Sleep 200
+
+' 2. Force a Ctrl+C by "holding" the keys (using lowercase 'c' is often more reliable)
+' This sends an Alt+Tab back and forth quickly to re-prime the focus
+objShell.SendKeys "%{TAB}"
+WScript.Sleep 300
+objShell.SendKeys "^c"
+objShell.SendKeys "^c"
+
+' 3. Give the clipboard a significant window to update
+WScript.Sleep 400
+
+' 4. Access the clipboard
+Set objHTML = CreateObject("htmlfile")
+selectedText = objHTML.ParentWindow.ClipboardData.GetData("text")
+
+If Not IsNull(selectedText) And selectedText <> "" Then
+    ' Optional: objVoice.Rate = 1 ' Uncomment to speed up the voice
+    objVoice.Speak selectedText
+End If
