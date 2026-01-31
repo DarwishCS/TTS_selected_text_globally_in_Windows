@@ -1,5 +1,5 @@
 # TTS_selected_text_globally_in_Windows
-TTS (Text-to-Speech) any selected text globally in Windows
+TTS (Text-to-Speech) any selected text globally in Windows.
 A lightweight, "no-software-required" solution to make Windows read any selected text aloud using a keyboard shortcut. Works in Chrome, Word, PDFs, and more.
 
 ## The Story (Why this exists)
