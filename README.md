@@ -48,6 +48,7 @@ When you press the hotkey:
 ---
 
 ## 4. The Code
+```vbs
 Set objShell = CreateObject("WScript.Shell")
 Set objVoice = CreateObject("SAPI.SpVoice")
 
@@ -72,3 +73,4 @@ If Not IsNull(selectedText) And selectedText <> "" Then
     ' Optional: objVoice.Rate = 1 ' Uncomment to speed up the voice
     objVoice.Speak selectedText
 End If
+```
