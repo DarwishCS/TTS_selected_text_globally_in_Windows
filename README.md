@@ -60,7 +60,6 @@ WScript.Sleep 200
 objShell.SendKeys "%{TAB}"
 WScript.Sleep 300
 objShell.SendKeys "^c"
-objShell.SendKeys "^c"
 
 ' 3. Give the clipboard a significant window to update
 WScript.Sleep 400
